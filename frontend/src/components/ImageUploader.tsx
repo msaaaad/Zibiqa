@@ -92,7 +92,7 @@ export function ImageUploader({ label, value, onChange }: ImageUploaderProps) {
             <button
               type="button"
               onClick={() => onChange("")}
-              className="w-fit text-xs text-muted hover:text-rose-dark"
+              className="w-fit text-xs text-muted hover:text-danger-dark"
             >
               Remove
             </button>
@@ -100,7 +100,7 @@ export function ImageUploader({ label, value, onChange }: ImageUploaderProps) {
         </div>
       </div>
 
-      {error && <p className="text-sm text-rose-dark">{error}</p>}
+      {error && <p className="text-sm text-danger-dark">{error}</p>}
     </div>
   );
 }

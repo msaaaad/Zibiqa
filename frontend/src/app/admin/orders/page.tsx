@@ -16,8 +16,8 @@ const STATUS_STYLE: Record<OrderStatus, string> = {
   pending: "bg-media-bg text-text",
   confirmed: "bg-sage-tint text-sage-dark",
   delivered: "bg-sage text-white",
-  rejected: "bg-rose-tint text-rose-dark",
-  cancelled: "bg-rose-tint text-rose-dark",
+  rejected: "bg-danger-tint text-danger-dark",
+  cancelled: "bg-danger-tint text-danger-dark",
 };
 
 const STATUS_FILTERS: Array<OrderStatus | "all"> = [

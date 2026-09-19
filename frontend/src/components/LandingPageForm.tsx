@@ -53,7 +53,7 @@ const inputClass =
 const labelClass = "text-[13px] text-muted";
 const addButtonClass =
   "mt-3 w-fit rounded-[8px] border border-dashed border-border px-4 py-2 text-sm text-muted hover:border-sage-dark hover:text-sage-dark disabled:cursor-not-allowed disabled:opacity-40";
-const removeButtonClass = "text-xs text-muted hover:text-rose-dark";
+const removeButtonClass = "text-xs text-muted hover:text-danger-dark";
 
 export function LandingPageForm({ initial, submitLabel, onSubmit, headerActions }: LandingPageFormProps) {
   const [values, setValues] = useState<LandingPageFormValues>({
@@ -445,11 +445,11 @@ export function LandingPageForm({ initial, submitLabel, onSubmit, headerActions 
       {/* Spacer so the fixed save bar below never covers the last section */}
       <div className="h-24" />
 
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-surface shadow-[0_-6px_20px_rgba(43,33,26,.08)]">
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-surface shadow-[0_-6px_20px_rgba(20,17,46,.08)]">
         <div className="mx-auto max-w-[1180px] px-4 py-3 sm:px-[28px]">
           <div className="flex items-center justify-between gap-3">
             {error ? (
-              <p className="text-sm text-rose-dark">{error}</p>
+              <p className="text-sm text-danger-dark">{error}</p>
             ) : (
               <span className="text-sm text-muted">
                 {saveState === "saved" ? "Saved ✓" : "Unsaved changes are lost if you navigate away."}

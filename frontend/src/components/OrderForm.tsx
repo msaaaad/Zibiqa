@@ -118,7 +118,7 @@ export function OrderForm({
                 required
               />
               {phoneError && (
-                <p style={{ marginTop: 6, fontSize: 12.5, color: "var(--rose-dark)" }}>{phoneError}</p>
+                <p style={{ marginTop: 6, fontSize: 12.5, color: "var(--danger-dark)" }}>{phoneError}</p>
               )}
             </div>
             <div className="field full">

@@ -43,7 +43,7 @@ export default function AdminLoginPage() {
         {/* eslint-disable-next-line @next/next/no-img-element -- small static logo, no next/image config needed */}
         <img src="/logo-mark.webp" alt="" width={40} height={40} className="mb-3 rounded-lg" />
         <h1 className="font-heading text-xl font-semibold text-text">Admin Login</h1>
-        <p className="mt-1 text-sm text-muted">Anniymah admin dashboard</p>
+        <p className="mt-1 text-sm text-muted">Zibiqa admin dashboard</p>
 
         <div className="mt-5 flex flex-col gap-1.5">
           <label htmlFor="email" className="text-[13px] text-muted">Email</label>
@@ -68,7 +68,7 @@ export default function AdminLoginPage() {
           />
         </div>
 
-        {error && <p className="mt-3 text-sm text-rose-dark">{error}</p>}
+        {error && <p className="mt-3 text-sm text-danger-dark">{error}</p>}
 
         <button
           type="submit"

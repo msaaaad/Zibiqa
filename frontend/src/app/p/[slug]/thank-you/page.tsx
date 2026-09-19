@@ -24,7 +24,7 @@ export default async function ThankYouPage({
             {/* eslint-disable-next-line @next/next/no-img-element -- small static logo, no next/image config needed */}
             <img src="/logo-mark.webp" alt="" width={32} height={32} className="brand-mark" />
             <span className="brand-text">
-              <span className="name">Anniymah</span>
+              <span className="name">Zibiqa</span>
               <span className="tag">premium perfume combo</span>
             </span>
           </a>

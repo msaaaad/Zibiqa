@@ -90,7 +90,7 @@ export default function EditLandingPage({ params }: { params: Promise<{ id: stri
               <button
                 type="button"
                 onClick={handleDelete}
-                className="rounded-[8px] border border-border px-4 py-2 text-sm text-muted hover:border-rose-dark hover:text-rose-dark"
+                className="rounded-[8px] border border-border px-4 py-2 text-sm text-muted hover:border-danger-dark hover:text-danger-dark"
               >
                 Delete page
               </button>

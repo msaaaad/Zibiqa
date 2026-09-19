@@ -26,7 +26,7 @@ export function AdminNav() {
         <span className="flex items-center gap-2 font-heading text-base font-semibold sm:text-lg">
           {/* eslint-disable-next-line @next/next/no-img-element -- small static logo, no next/image config needed */}
           <img src="/logo-mark.webp" alt="" width={28} height={28} className="rounded-md" />
-          Anniymah Admin
+          Zibiqa Admin
         </span>
         <nav className="flex items-center gap-3 sm:gap-4">
           {LINKS.map((link) => (

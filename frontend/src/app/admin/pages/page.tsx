@@ -95,7 +95,7 @@ export default function AdminPagesList() {
                 type="button"
                 onClick={() => handleDelete(page.id, page.title)}
                 disabled={deletingId === page.id}
-                className="rounded-[8px] border border-border px-4 py-2 text-sm text-muted hover:border-rose-dark hover:text-rose-dark disabled:opacity-50"
+                className="rounded-[8px] border border-border px-4 py-2 text-sm text-muted hover:border-danger-dark hover:text-danger-dark disabled:opacity-50"
               >
                 Delete
               </button>
