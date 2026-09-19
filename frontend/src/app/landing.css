@@ -1,0 +1,335 @@
+/* Ported from the reference landing page build (see design guidelines doc).
+   Scoped to the public landing route only — admin screens use Tailwind. */
+
+html { scroll-behavior: smooth; }
+img, svg { display: block; max-width: 100%; }
+h1, h2, h3 { font-family: var(--font-heading), Georgia, serif; font-weight: 500; margin: 0; color: var(--text); }
+p { margin: 0; }
+input, select, textarea { font-size: 15px; }
+
+.container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(251, 246, 239, .92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+}
+.site-header .row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 28px;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark { border-radius: 8px; flex-shrink: 0; }
+.brand-text { display: flex; flex-direction: column; gap: 1px; }
+.brand .name { font-family: var(--font-heading), serif; font-size: 23px; font-weight: 600; letter-spacing: .2px; }
+.brand .tag { font-size: 12.5px; color: var(--muted); }
+.main-nav { display: flex; align-items: center; gap: 34px; }
+.main-nav a { font-size: 14.5px; color: var(--text); position: relative; padding: 4px 0; }
+.main-nav a.active { color: var(--sage-dark); font-weight: 600; }
+.main-nav a.active::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--sage);
+  border-radius: 2px;
+}
+.header-actions { display: flex; align-items: center; gap: 18px; }
+
+/* ---------- Buttons & badges ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 26px; border-radius: 8px; font-size: 14.5px; font-weight: 600;
+  border: 1px solid transparent; transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.btn-primary { background: var(--sage); color: #fff; }
+.btn-primary:hover { background: var(--sage-dark); }
+.btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+.btn-block { width: 100%; }
+.btn-sm { padding: 9px 16px; font-size: 13.5px; }
+
+.badge {
+  display: inline-block; padding: 5px 12px; border-radius: 20px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: .2px; color: #fff;
+}
+.badge-trending { background: var(--rose); }
+
+/* ---------- Premium dark panel (hero + product collection) ----------
+   Full-bleed edge-to-edge, like the reference — reuses existing tokens
+   rather than inventing new colors: the dark base IS --text (already a
+   near-black warm brown), light content sits in --sage-tint (cream) and
+   --rose (ivory) — same palette, just inverted, so it stays "ours"
+   instead of borrowing the reference's navy. */
+section.section-premium {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(1100px circle at 12% -10%, rgba(192, 81, 18, .4), transparent 55%),
+    radial-gradient(900px circle at 92% 105%, rgba(192, 81, 18, .28), transparent 50%),
+    var(--text);
+  background-size: 180% 180%;
+  color: var(--sage-tint);
+  padding: 64px 0;
+}
+.section-premium h1, .section-premium h2 { color: var(--rose); }
+
+/* EXPERIMENTAL — local-only per request, not yet approved to ship.
+   Slowly drifts the glow left-to-right and back, like a slow wave. */
+@keyframes wave-glow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  section.section-premium { animation: wave-glow 16s ease-in-out infinite; }
+}
+
+/* ---------- Hero ---------- */
+.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; }
+.eyebrow { color: var(--sage-tint); opacity: .7; font-size: 14px; margin-bottom: 14px; }
+.hero h1 { font-size: 46px; line-height: 1.18; max-width: 520px; }
+.hero p.lead { margin-top: 20px; color: var(--sage-tint); opacity: .85; font-size: 16.5px; max-width: 440px; }
+.hero .btn { margin-top: 28px; }
+.hero-visual {
+  border-radius: 16px; height: 340px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.hero-visual img { filter: drop-shadow(0 25px 40px rgba(0, 0, 0, .45)); }
+.hero-contact { margin-top: 16px; font-size: 13.5px; color: var(--sage-tint); opacity: .75; }
+.hero-contact a { color: var(--rose); font-weight: 600; }
+
+.price-row { display: flex; align-items: baseline; gap: 12px; margin-top: 18px; }
+.price-old { font-size: 16px; color: var(--sage-tint); opacity: .55; text-decoration: line-through; }
+.price-current { font-family: var(--font-heading), serif; font-size: 30px; font-weight: 600; color: var(--rose); }
+
+/* ---------- Floating hero image ---------- */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .floaty { animation: float 4.5s ease-in-out infinite; }
+}
+
+/* ---------- Sections ---------- */
+.section { padding: 40px 0; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 26px; }
+.section-head h2 { font-size: 24px; }
+.section-head.stack { display: block; }
+.section-head.stack p { margin-top: 8px; color: var(--muted); font-size: 14.5px; }
+
+/* ---------- Features / USP grid ---------- */
+.feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.feature-card {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 18px;
+}
+.feature-icon {
+  width: 48px; height: 48px; border-radius: 10px; background: var(--sage-tint);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.feature-card h3 { font-size: 15px; font-family: var(--font-body), sans-serif; font-weight: 600; }
+.feature-card p { margin-top: 4px; font-size: 13.5px; color: var(--muted); }
+
+/* ---------- Product collection ---------- */
+.collection-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.collection-card {
+  background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 12px; overflow: hidden;
+}
+.collection-media {
+  aspect-ratio: 1 / 1; background: rgba(255, 255, 255, .04);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.collection-media img { width: 100%; height: 100%; object-fit: cover; }
+.collection-body { padding: 14px 16px; }
+.collection-body h3 { font-size: 14.5px; font-family: var(--font-body), sans-serif; font-weight: 600; color: var(--rose); }
+.collection-body p { margin-top: 3px; font-size: 13px; color: var(--sage-tint); opacity: .75; }
+@media (max-width: 880px) {
+  .collection-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- Shipping trust bar ---------- */
+.shipping-bar {
+  display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; justify-content: center;
+  background: var(--sage); border-radius: 12px; padding: 16px 20px; margin: 30px 0;
+}
+.shipping-bar-item {
+  display: flex; align-items: center; gap: 8px; color: #fff; font-size: 13.5px; font-weight: 600;
+}
+.shipping-bar-item svg { flex-shrink: 0; }
+
+/* ---------- Order section ---------- */
+.order-section {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  padding: 40px; margin: 20px 0 10px;
+}
+.order-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 44px; align-items: start; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { margin-bottom: 16px; }
+.field.full { grid-column: 1 / -1; }
+.field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 7px; }
+.field input, .field textarea {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); color: var(--text); outline: none;
+}
+.field input:focus, .field textarea:focus { border-color: var(--sage); }
+.field input:disabled { color: var(--muted); }
+.field textarea { resize: vertical; min-height: 80px; }
+
+.qty-stepper {
+  display: flex; align-items: center; width: fit-content;
+  border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+}
+.qty-stepper button {
+  width: 42px; height: 44px; background: var(--surface); border: none;
+  font-size: 18px; line-height: 1; color: var(--text); cursor: pointer;
+}
+.qty-stepper button:hover:not(:disabled) { background: var(--sage-tint); color: var(--sage-dark); }
+.qty-stepper button:disabled { color: var(--border); cursor: not-allowed; }
+.qty-stepper input {
+  width: 48px; height: 44px; padding: 0; text-align: center; font-weight: 600;
+  border: none; border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+  -moz-appearance: textfield;
+}
+.qty-stepper input::-webkit-outer-spin-button,
+.qty-stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.delivery-options { display: flex; flex-direction: column; gap: 8px; }
+/* `.field label { display: block }` outranks a plain `.delivery-option` class
+   selector on specificity alone (0,0,1,1 beats 0,0,1,0), so this must match
+   as `label.delivery-option` to win and keep the row flex-laid-out. */
+label.delivery-option {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px;
+  font-size: 14px; color: var(--text); cursor: pointer; margin-bottom: 0;
+  transition: border-color .15s ease, background .15s ease;
+}
+.delivery-option.active { border-color: var(--sage); background: var(--sage-tint); }
+/* Reset the `.field input { width:100%; padding; border }` rule, which also
+   matches this radio since it lives inside a `.field.full` wrapper and would
+   otherwise stretch its layout box and squeeze the label text onto its own line. */
+.delivery-option input {
+  width: auto; padding: 0; border: none; border-radius: 0; background: transparent;
+  accent-color: var(--sage); flex-shrink: 0;
+}
+.delivery-option .charge { font-weight: 600; color: var(--sage-dark); white-space: nowrap; }
+
+.order-summary { background: var(--sage-tint); border-radius: 12px; padding: 22px; }
+.order-summary h4 { font-size: 15px; margin-bottom: 14px; font-family: var(--font-heading), serif; }
+.order-summary .row { display: flex; justify-content: space-between; font-size: 14px; padding: 6px 0; color: var(--text); }
+.order-summary .row.total { border-top: 1px solid var(--border); margin-top: 8px; padding-top: 12px; font-weight: 700; font-size: 16px; }
+.order-summary .tk { font-weight: 500; opacity: .75; margin-right: 1px; }
+.wa-note {
+  display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--sage-dark);
+  background: var(--surface); border: 1px dashed var(--sage); border-radius: 8px; padding: 10px 12px; margin-top: 16px;
+}
+.wa-note svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+
+.order-status {
+  display: none; align-items: center; gap: 10px; margin-top: 16px; padding: 12px 14px;
+  border-radius: 8px; font-size: 13.5px; font-weight: 600;
+}
+.order-status.show { display: flex; }
+.order-status.error { background: var(--rose-tint); color: var(--rose-dark); }
+.order-status svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* ---------- Footer ---------- */
+.site-footer { border-top: 1px solid var(--border); margin-top: 60px; padding: 44px 0 34px; }
+.footer-bottom {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  font-size: 12.5px; color: var(--muted);
+}
+
+/* ---------- Mobile nav ---------- */
+.menu-toggle {
+  display: none; background: none; border: none; color: var(--text);
+  width: 38px; height: 38px; align-items: center; justify-content: center; cursor: pointer;
+}
+.mobile-nav {
+  display: none; flex-direction: column;
+  background: var(--surface); border-top: 1px solid var(--border);
+  padding: 6px 28px 14px;
+}
+.mobile-nav a { padding: 13px 0; font-size: 15px; color: var(--text); border-bottom: 1px solid var(--border); }
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav.open { display: flex; }
+
+/* ---------- sticky mobile order bar ---------- */
+.sticky-cta {
+  display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  background: var(--surface); border-top: 1px solid var(--border);
+  padding: 12px 20px; box-shadow: 0 -6px 20px rgba(43, 33, 26, .08);
+}
+
+/* ---------- Thank-you page ---------- */
+.thank-you-wrap {
+  min-height: calc(100vh - 140px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 60px 20px;
+}
+.thank-you-card {
+  max-width: 460px; width: 100%; text-align: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  padding: 48px 36px; box-shadow: var(--shadow);
+}
+.check-badge { position: relative; width: 84px; height: 84px; margin: 0 auto 24px; }
+.check-glow {
+  position: absolute; inset: 0; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle, var(--sage) 0%, transparent 70%);
+}
+.check-badge svg { position: relative; width: 100%; height: 100%; }
+.check-circle, .check-mark {
+  fill: none; stroke: var(--sage); stroke-width: 3;
+  stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 100; stroke-dashoffset: 0;
+}
+.thank-you-card h1 { font-size: 23px; margin-bottom: 10px; }
+.thank-you-card .sub { color: var(--muted); font-size: 14.5px; margin-bottom: 24px; }
+.thank-you-summary {
+  background: var(--sage-tint); border-radius: 10px; padding: 16px 18px;
+  text-align: left; margin-bottom: 24px;
+}
+.thank-you-summary .row { display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; color: var(--text); }
+.thank-you-contact { margin-top: 18px; font-size: 13px; color: var(--muted); }
+.thank-you-contact a { color: var(--sage-dark); font-weight: 600; }
+
+/* One-shot draw-in — checkmark strokes itself, then a soft glow pulses
+   behind it. Guarded so it never loops and respects reduced-motion. */
+@keyframes draw-stroke { to { stroke-dashoffset: 0; } }
+@keyframes glow-pulse {
+  0% { opacity: 0; transform: scale(.7); }
+  50% { opacity: .5; }
+  100% { opacity: 0; transform: scale(1.7); }
+}
+@keyframes card-in {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .check-circle { stroke-dashoffset: 100; animation: draw-stroke .6s ease-out forwards; }
+  .check-mark { stroke-dashoffset: 100; animation: draw-stroke .4s ease-out .55s forwards; }
+  .check-glow { animation: glow-pulse 1.1s ease-out .15s; }
+  .thank-you-card { animation: card-in .5s ease-out; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 880px) {
+  .hero-grid, .form-grid { grid-template-columns: 1fr; }
+  .main-nav { display: none; }
+  .menu-toggle { display: flex; }
+  .hero h1 { font-size: 34px; }
+  .order-grid { grid-template-columns: 1fr; }
+  .order-section { padding: 24px; }
+  .sticky-cta { display: block; }
+  .landing-body { padding-bottom: 74px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  section.section-premium { padding: 40px 0; }
+}
+@media (max-width: 600px) {
+  /* Individually-centered wrapped items look ragged once they can only fit
+     one per line — switch to a clean left-aligned stack instead. */
+  .shipping-bar { flex-direction: column; align-items: flex-start; padding: 18px 22px; gap: 13px; }
+}
+@media (max-width: 480px) {
+  .field input, .field textarea { padding: 14px; font-size: 16px; }
+  #order-form .btn-block { padding: 16px 26px; font-size: 15.5px; }
+}
