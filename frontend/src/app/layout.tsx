@@ -4,7 +4,7 @@ import Script from "next/script";
 import { Toaster } from "sonner";
 import "./globals.css";
 
-const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+const metaPixelId = process.env.META_PIXEL_ID;
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",

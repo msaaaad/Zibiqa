@@ -5,7 +5,7 @@ import "../../../landing.css";
 
 export const dynamic = "force-dynamic";
 
-const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+const metaPixelId = process.env.META_PIXEL_ID;
 
 export default async function ThankYouPage({
   params,
