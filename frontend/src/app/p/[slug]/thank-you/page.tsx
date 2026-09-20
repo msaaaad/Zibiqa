@@ -1,8 +1,11 @@
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { getLandingPageBySlug } from "@/lib/db";
 import "../../../landing.css";
 
 export const dynamic = "force-dynamic";
+
+const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
 export default async function ThankYouPage({
   params,
@@ -16,8 +19,19 @@ export default async function ThankYouPage({
   const landing = await getLandingPageBySlug(slug);
   if (!landing) notFound();
 
+  const totalValue = total ? Number(total) : NaN;
+
   return (
     <div className="landing-body">
+      {metaPixelId && Number.isFinite(totalValue) && (
+        <Script
+          id="meta-pixel-purchase"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.fbq && fbq('track', 'Purchase', { value: ${totalValue}, currency: 'BDT' });`,
+          }}
+        />
+      )}
       <header className="site-header">
         <div className="row">
           <a href={`/p/${slug}`} className="brand">
